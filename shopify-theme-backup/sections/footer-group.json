@@ -1,0 +1,30 @@
+{
+  "sections": {
+    "footer": {
+      "type": "footer",
+      "blocks": {
+        "link_list_1": {
+          "type": "link_list",
+          "settings": {
+            "heading": "Quick links",
+            "menu": "footer"
+          }
+        },
+        "text_1": {
+          "type": "text",
+          "settings": {
+            "heading": "About us",
+            "subtext": "<p>Quality products crafted with care for every step of your journey.</p>"
+          }
+        }
+      },
+      "block_order": ["link_list_1", "text_1"],
+      "settings": {
+        "newsletter_enable": true,
+        "newsletter_heading": "Stay in the loop",
+        "show_social": true
+      }
+    }
+  },
+  "order": ["footer"]
+}

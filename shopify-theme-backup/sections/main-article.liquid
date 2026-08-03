@@ -1,0 +1,127 @@
+<div class="page-width section-{{ section.id }}-padding">
+  <div class="article-template">
+    {%- for block in section.blocks -%}
+      {%- case block.type -%}
+
+        {%- when 'featured_image' -%}
+          {%- if article.image -%}
+            <div class="article-template__hero-container" {{ block.shopify_attributes }}>
+              <div class="article-template__hero-{{ block.settings.image_height }}">
+                {{ article.image | image_url: width: 1500 | image_tag:
+                  loading: 'lazy',
+                  widths: '375, 750, 1100, 1500',
+                  class: 'article-template__image'
+                }}
+              </div>
+            </div>
+          {%- endif -%}
+
+        {%- when 'title' -%}
+          <header class="article-template__header" {{ block.shopify_attributes }}>
+            <h1 class="article-template__title">{{ article.title | escape }}</h1>
+            {%- if block.settings.blog_show_date -%}
+              <span class="circle-divider caption-with-letter-spacing">{{ article.published_at | time_tag: format: 'date' }}</span>
+            {%- endif -%}
+            {%- if block.settings.blog_show_author -%}
+              <span class="circle-divider caption-with-letter-spacing">{{ 'blogs.article.written_by' | t: author: article.author }}</span>
+            {%- endif -%}
+          </header>
+
+        {%- when 'content' -%}
+          <div class="article-template__content rte" {{ block.shopify_attributes }}>
+            {{ article.content }}
+          </div>
+
+        {%- when 'share' -%}
+          <div class="article-template__social-sharing page-width" {{ block.shopify_attributes }}>
+            <span class="circle-divider caption-with-letter-spacing">{{ block.settings.share_label | default: 'Share' }}</span>
+          </div>
+
+      {%- endcase -%}
+    {%- endfor -%}
+
+    <div class="article-template__back element-margin-top caption">
+      &larr; <a href="{{ blog.url }}" class="link animate-arrow">{{ 'blogs.article.back_to_blog' | t: title: blog.title }}</a>
+    </div>
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Article",
+  "settings": [
+    {
+      "type": "select",
+      "id": "color_scheme",
+      "options": [
+        { "value": "accent-1", "label": "Accent 1" },
+        { "value": "accent-2", "label": "Accent 2" },
+        { "value": "background-1", "label": "Background 1" },
+        { "value": "background-2", "label": "Background 2" },
+        { "value": "inverse", "label": "Inverse" }
+      ],
+      "default": "background-1",
+      "label": "Color scheme"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "featured_image",
+      "name": "Featured image",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "select",
+          "id": "image_height",
+          "options": [
+            { "value": "adapt", "label": "Adapt to image" },
+            { "value": "small", "label": "Small" },
+            { "value": "medium", "label": "Medium" },
+            { "value": "large", "label": "Large" }
+          ],
+          "default": "adapt",
+          "label": "Image height"
+        }
+      ]
+    },
+    {
+      "type": "title",
+      "name": "Title and date",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "checkbox",
+          "id": "blog_show_date",
+          "default": true,
+          "label": "Show date"
+        },
+        {
+          "type": "checkbox",
+          "id": "blog_show_author",
+          "default": false,
+          "label": "Show author"
+        }
+      ]
+    },
+    {
+      "type": "content",
+      "name": "Content",
+      "limit": 1,
+      "settings": []
+    },
+    {
+      "type": "share",
+      "name": "Share",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "text",
+          "id": "share_label",
+          "label": "Text",
+          "default": "Share"
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

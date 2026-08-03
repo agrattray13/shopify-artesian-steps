@@ -1,0 +1,166 @@
+<header class="header header--{{ section.settings.menu_type_desktop }}{% if section.settings.show_line_separator %} header--border-bottom{% endif %}{% if section.settings.enable_sticky_header %} shopify-section-header-sticky{% endif %} color-{{ section.settings.color_scheme }} gradient"
+  id="shopify-section-{{ section.id }}">
+  <div class="header__inner page-width">
+
+    {%- if section.settings.logo != blank -%}
+      <div class="header__heading">
+        <a href="{{ routes.root_url }}" class="header__heading-link link link--text focus-inset">
+          {%- assign logo_alt = section.settings.logo.alt | default: shop.name | escape -%}
+          {{ section.settings.logo | image_url: width: section.settings.logo_width | image_tag:
+            class: 'header__heading-logo',
+            widths: '50, 100, 150, 200, 250, 300',
+            height: section.settings.logo.height | divided_by: section.settings.logo.width | times: section.settings.logo_width,
+            width: section.settings.logo_width,
+            alt: logo_alt
+          }}
+        </a>
+      </div>
+    {%- else -%}
+      <div class="header__heading">
+        <a href="{{ routes.root_url }}" class="header__heading-link link link--text focus-inset">
+          <span class="h2">{{ shop.name }}</span>
+        </a>
+      </div>
+    {%- endif -%}
+
+    {%- if section.settings.menu != blank -%}
+      <nav class="header__inline-menu" aria-label="Main navigation">
+        <ul class="list-menu list-menu--inline" role="list">
+          {%- for link in linklists[section.settings.menu].links -%}
+            <li>
+              {%- if link.links != blank -%}
+                <details-disclosure>
+                  <details class="mega-menu">
+                    <summary class="header__menu-item list-menu__item link focus-inset">
+                      <span>{{ link.title | escape }}</span>
+                      <svg aria-hidden="true" focusable="false" class="icon icon-caret" viewBox="0 0 10 6">
+                        <path fill-rule="evenodd" clip-rule="evenodd" d="M9.354.646a.5.5 0 00-.708 0L5 4.293 1.354.646a.5.5 0 00-.708.708l4 4a.5.5 0 00.708 0l4-4a.5.5 0 000-.708z" fill="currentColor">
+                      </svg>
+                    </summary>
+                    <div class="mega-menu__content color-{{ section.settings.menu_color_scheme }} gradient motion-reduce global-settings-popup">
+                      <ul class="mega-menu__list page-width list-unstyled" role="list">
+                        {%- for childlink in link.links -%}
+                          <li>
+                            <a href="{{ childlink.url }}" class="mega-menu__link mega-menu__link--level-2 link{% if childlink.current %} mega-menu__link--active{% endif %}" {% if childlink.current %}aria-current="page"{% endif %}>
+                              {{ childlink.title | escape }}
+                            </a>
+                          </li>
+                        {%- endfor -%}
+                      </ul>
+                    </div>
+                  </details>
+                </details-disclosure>
+              {%- else -%}
+                <a href="{{ link.url }}" class="header__menu-item list-menu__item link link--text focus-inset{% if link.current %} list-menu__item--active{% endif %}"
+                  {% if link.current %}aria-current="page"{% endif %}>
+                  <span>{{ link.title | escape }}</span>
+                </a>
+              {%- endif -%}
+            </li>
+          {%- endfor -%}
+        </ul>
+      </nav>
+    {%- endif -%}
+
+    <div class="header__icons">
+      <a href="{{ routes.search_url }}" class="header__icon header__icon--search link focus-inset" aria-label="{{ 'accessibility.open_search' | t }}">
+        {%- render 'icon-search' -%}
+      </a>
+      {%- if shop.customer_accounts_enabled -%}
+        <a href="{%- if customer -%}{{ routes.account_url }}{%- else -%}{{ routes.account_login_url }}{%- endif -%}" class="header__icon header__icon--account link focus-inset" aria-label="{%- if customer -%}{{ 'customer.account.title' | t }}{%- else -%}{{ 'customer.login.title' | t }}{%- endif -%}">
+          {%- render 'icon-account' -%}
+        </a>
+      {%- endif -%}
+      <a href="{{ routes.cart_url }}" class="header__icon header__icon--cart link focus-inset" id="cart-icon-bubble" aria-label="{{ 'accessibility.cart_count' | t: count: cart.item_count }}">
+        {%- render 'icon-cart' -%}
+        {%- if cart.item_count > 0 -%}
+          <div class="cart-count-bubble">
+            {%- if cart.item_count < 100 -%}
+              <span aria-hidden="true">{{ cart.item_count }}</span>
+            {%- endif -%}
+            <span class="visually-hidden">{{ 'accessibility.cart_count' | t: count: cart.item_count }}</span>
+          </div>
+        {%- endif -%}
+      </a>
+    </div>
+
+  </div>
+</header>
+
+{% schema %}
+{
+  "name": "Header",
+  "class": "section-header",
+  "settings": [
+    {
+      "type": "image_picker",
+      "id": "logo",
+      "label": "Logo image"
+    },
+    {
+      "type": "range",
+      "id": "logo_width",
+      "min": 50,
+      "max": 300,
+      "step": 10,
+      "default": 160,
+      "unit": "px",
+      "label": "Custom logo width"
+    },
+    {
+      "type": "link_list",
+      "id": "menu",
+      "default": "main-menu",
+      "label": "Menu"
+    },
+    {
+      "type": "select",
+      "id": "menu_type_desktop",
+      "options": [
+        { "value": "dropdown", "label": "Dropdown" },
+        { "value": "mega", "label": "Mega menu" }
+      ],
+      "default": "dropdown",
+      "label": "Desktop menu type"
+    },
+    {
+      "type": "select",
+      "id": "color_scheme",
+      "options": [
+        { "value": "accent-1", "label": "Accent 1" },
+        { "value": "accent-2", "label": "Accent 2" },
+        { "value": "background-1", "label": "Background 1" },
+        { "value": "background-2", "label": "Background 2" },
+        { "value": "inverse", "label": "Inverse" }
+      ],
+      "default": "background-1",
+      "label": "Color scheme"
+    },
+    {
+      "type": "select",
+      "id": "menu_color_scheme",
+      "options": [
+        { "value": "accent-1", "label": "Accent 1" },
+        { "value": "accent-2", "label": "Accent 2" },
+        { "value": "background-1", "label": "Background 1" },
+        { "value": "background-2", "label": "Background 2" },
+        { "value": "inverse", "label": "Inverse" }
+      ],
+      "default": "background-1",
+      "label": "Dropdown color scheme"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_line_separator",
+      "default": true,
+      "label": "Show separator line"
+    },
+    {
+      "type": "checkbox",
+      "id": "enable_sticky_header",
+      "default": true,
+      "label": "Enable sticky header"
+    }
+  ]
+}
+{% endschema %}

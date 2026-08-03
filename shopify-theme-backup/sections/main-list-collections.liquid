@@ -1,0 +1,97 @@
+<div class="page-width section-{{ section.id }}-padding color-{{ section.settings.color_scheme }} gradient">
+  {%- liquid
+    assign columns_desktop = section.settings.columns_desktop | default: 3
+  -%}
+
+  {%- if collection_list == blank -%}
+    {%- assign collection_list = collections -%}
+  {%- endif -%}
+
+  <div class="title-wrapper center">
+    <h1 class="title h0">{{ 'templates.list_of_collections.title' | t | default: 'Collections' }}</h1>
+  </div>
+
+  <ul class="grid grid--1-col grid--2-col-tablet grid--{{ columns_desktop }}-col-desktop collection-list" role="list">
+    {%- for collection in collections -%}
+      <li class="grid__item collection-list__item{% if settings.animations_reveal_on_scroll == 'enabled' %} scroll-trigger animate--slide-in{% endif %}">
+        <a href="{{ collection.url }}" class="collection-list__item-link full-unstyled-link focus-inset">
+          <div class="card card--media">
+            <div class="card__inner">
+              <div class="card__media">
+                {%- if collection.featured_image != blank -%}
+                  {{ collection.featured_image | image_url: width: 533 | image_tag: loading: 'lazy', widths: '165, 360, 533', class: 'card__media-img' }}
+                {%- else -%}
+                  {{ 'collection-1' | placeholder_svg_tag: 'placeholder-svg' }}
+                {%- endif -%}
+              </div>
+              <div class="card__information">
+                <h3 class="card__heading">{{ collection.title }}</h3>
+                {%- if section.settings.show_collection_description and collection.description != blank -%}
+                  <p class="card__caption">{{ collection.description | strip_html | truncatewords: 15 }}</p>
+                {%- endif -%}
+              </div>
+            </div>
+          </div>
+        </a>
+      </li>
+    {%- endfor -%}
+  </ul>
+</div>
+
+{% schema %}
+{
+  "name": "All collections",
+  "settings": [
+    {
+      "type": "select",
+      "id": "sort",
+      "options": [
+        { "value": "alphabetical", "label": "Alphabetical A-Z" },
+        { "value": "alphabetical_reversed", "label": "Alphabetical Z-A" },
+        { "value": "date_modified_desc", "label": "Recently updated" }
+      ],
+      "default": "alphabetical",
+      "label": "Sort collections by"
+    },
+    {
+      "type": "range",
+      "id": "columns_desktop",
+      "min": 1,
+      "max": 5,
+      "step": 1,
+      "default": 3,
+      "label": "Number of columns on desktop"
+    },
+    {
+      "type": "select",
+      "id": "color_scheme",
+      "options": [
+        { "value": "accent-1", "label": "Accent 1" },
+        { "value": "accent-2", "label": "Accent 2" },
+        { "value": "background-1", "label": "Background 1" },
+        { "value": "background-2", "label": "Background 2" },
+        { "value": "inverse", "label": "Inverse" }
+      ],
+      "default": "background-1",
+      "label": "Color scheme"
+    },
+    {
+      "type": "select",
+      "id": "image_ratio",
+      "options": [
+        { "value": "adapt", "label": "Adapt to image" },
+        { "value": "portrait", "label": "Portrait" },
+        { "value": "square", "label": "Square" }
+      ],
+      "default": "square",
+      "label": "Image ratio"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_collection_description",
+      "default": true,
+      "label": "Show collection description"
+    }
+  ]
+}
+{% endschema %}

@@ -1,0 +1,30 @@
+<div class="page-width section-{{ section.id }}-padding color-{{ section.settings.color_scheme }} gradient">
+  <div class="error-404 center">
+    <span class="visually-hidden">404</span>
+    <h1 class="error-404__title h0">404</h1>
+    <h2 class="error-404__sub-title h2">{{ 'templates.404.title' | t }}</h2>
+    <p>{{ 'templates.404.subtext' | t }}</p>
+    <a href="{{ routes.root_url }}" class="btn btn--primary">{{ 'templates.404.link' | t }}</a>
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "404",
+  "settings": [
+    {
+      "type": "select",
+      "id": "color_scheme",
+      "options": [
+        { "value": "accent-1", "label": "Accent 1" },
+        { "value": "accent-2", "label": "Accent 2" },
+        { "value": "background-1", "label": "Background 1" },
+        { "value": "background-2", "label": "Background 2" },
+        { "value": "inverse", "label": "Inverse" }
+      ],
+      "default": "background-1",
+      "label": "Color scheme"
+    }
+  ]
+}
+{% endschema %}
