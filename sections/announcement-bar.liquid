@@ -1,0 +1,57 @@
+{%- if section.settings.show_announcement -%}
+  <div class="announcement-bar color-{{ section.settings.color_scheme }} gradient" role="region" aria-label="Announcement">
+    <div class="announcement-bar__content page-width">
+      {%- if section.settings.announcement_link != blank -%}
+        <a href="{{ section.settings.announcement_link }}" class="announcement-bar__link link link--text">
+          {{- section.settings.announcement_text | escape -}}
+        </a>
+      {%- else -%}
+        <p class="announcement-bar__message h5">{{ section.settings.announcement_text | escape }}</p>
+      {%- endif -%}
+    </div>
+  </div>
+{%- endif -%}
+
+{% schema %}
+{
+  "name": "Announcement bar",
+  "class": "announcement-bar-section",
+  "settings": [
+    {
+      "type": "checkbox",
+      "id": "show_announcement",
+      "default": true,
+      "label": "Show announcement"
+    },
+    {
+      "type": "text",
+      "id": "announcement_text",
+      "default": "Welcome to our store",
+      "label": "Announcement text"
+    },
+    {
+      "type": "url",
+      "id": "announcement_link",
+      "label": "Announcement link"
+    },
+    {
+      "type": "select",
+      "id": "color_scheme",
+      "options": [
+        { "value": "accent-1", "label": "Accent 1" },
+        { "value": "accent-2", "label": "Accent 2" },
+        { "value": "background-1", "label": "Background 1" },
+        { "value": "background-2", "label": "Background 2" },
+        { "value": "inverse", "label": "Inverse" }
+      ],
+      "default": "accent-1",
+      "label": "Color scheme"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Announcement bar"
+    }
+  ]
+}
+{% endschema %}

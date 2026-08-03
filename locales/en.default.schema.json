@@ -1,0 +1,228 @@
+{
+  "settings_schema": {
+    "colors": {
+      "name": "Colors",
+      "settings": {
+        "colors_text": { "label": "Text" },
+        "colors_background_1": { "label": "Background 1" },
+        "colors_background_2": { "label": "Background 2" },
+        "colors_solid_button_labels": { "label": "Solid button labels" },
+        "colors_outline_button_labels": { "label": "Outline button labels" },
+        "colors_accent_1": { "label": "Accent 1" },
+        "gradient_accent_1": { "label": "Accent 1 gradient" },
+        "colors_accent_2": { "label": "Accent 2" },
+        "gradient_accent_2": { "label": "Accent 2 gradient" },
+        "gradient_background_1": { "label": "Background 1 gradient" },
+        "gradient_background_2": { "label": "Background 2 gradient" }
+      }
+    },
+    "typography": {
+      "name": "Typography",
+      "settings": {
+        "header__1": { "content": "Headings" },
+        "type_header_font": { "label": "Font" },
+        "heading_scale": { "label": "Font size scale" },
+        "header__2": { "content": "Body text" },
+        "type_body_font": { "label": "Font" },
+        "body_scale": { "label": "Font size scale" }
+      }
+    },
+    "layout": {
+      "name": "Layout",
+      "settings": {
+        "page_width": { "label": "Page width" },
+        "spacing_sections": { "label": "Space between template sections" }
+      }
+    },
+    "grid": {
+      "name": "Grid",
+      "settings": {
+        "spacing_grid_vertical": { "label": "Vertical space" },
+        "spacing_grid_horizontal": { "label": "Horizontal space" }
+      }
+    },
+    "product_cards": {
+      "name": "Product cards",
+      "settings": {
+        "card_style": {
+          "label": "Style",
+          "options__1": { "label": "Standard" },
+          "options__2": { "label": "Card" }
+        },
+        "card_image_padding": { "label": "Image padding" },
+        "card_text_alignment": {
+          "label": "Text alignment",
+          "options__1": { "label": "Left" },
+          "options__2": { "label": "Center" },
+          "options__3": { "label": "Right" }
+        },
+        "card_corner_radius": { "label": "Corner radius" },
+        "card_border_thickness": { "label": "Border thickness" },
+        "card_border_opacity": { "label": "Border opacity" },
+        "card_shadow_opacity": { "label": "Shadow opacity" },
+        "card_shadow_horizontal_offset": { "label": "Shadow horizontal offset" },
+        "card_shadow_vertical_offset": { "label": "Shadow vertical offset" },
+        "card_shadow_blur": { "label": "Shadow blur" }
+      }
+    },
+    "media": {
+      "name": "Media",
+      "settings": {
+        "enable_video_autoplay": { "label": "Enable video autoplay" },
+        "enable_video_looping": { "label": "Enable video looping" },
+        "media_padding": { "label": "Padding" },
+        "media_border_thickness": { "label": "Border thickness" },
+        "media_border_opacity": { "label": "Border opacity" },
+        "media_radius": { "label": "Corner radius" },
+        "media_shadow_opacity": { "label": "Shadow opacity" },
+        "media_shadow_horizontal_offset": { "label": "Shadow horizontal offset" },
+        "media_shadow_vertical_offset": { "label": "Shadow vertical offset" },
+        "media_shadow_blur": { "label": "Shadow blur" }
+      }
+    },
+    "buttons": {
+      "name": "Buttons",
+      "settings": {
+        "buttons_radius": { "label": "Corner radius" },
+        "buttons_border_thickness": { "label": "Border thickness" },
+        "buttons_border_opacity": { "label": "Border opacity" },
+        "buttons_shadow_opacity": { "label": "Shadow opacity" },
+        "buttons_shadow_horizontal_offset": { "label": "Shadow horizontal offset" },
+        "buttons_shadow_vertical_offset": { "label": "Shadow vertical offset" },
+        "buttons_shadow_blur": { "label": "Shadow blur" }
+      }
+    },
+    "inputs": {
+      "name": "Inputs",
+      "settings": {
+        "inputs_radius": { "label": "Corner radius" },
+        "inputs_border_thickness": { "label": "Border thickness" },
+        "inputs_border_opacity": { "label": "Border opacity" },
+        "inputs_shadow_opacity": { "label": "Shadow opacity" },
+        "inputs_shadow_horizontal_offset": { "label": "Shadow horizontal offset" },
+        "inputs_shadow_vertical_offset": { "label": "Shadow vertical offset" },
+        "inputs_shadow_blur": { "label": "Shadow blur" }
+      }
+    },
+    "text_boxes": {
+      "name": "Text boxes",
+      "settings": {
+        "text_boxes_radius": { "label": "Corner radius" },
+        "text_boxes_border_thickness": { "label": "Border thickness" },
+        "text_boxes_border_opacity": { "label": "Border opacity" },
+        "text_boxes_shadow_opacity": { "label": "Shadow opacity" },
+        "text_boxes_shadow_horizontal_offset": { "label": "Shadow horizontal offset" },
+        "text_boxes_shadow_vertical_offset": { "label": "Shadow vertical offset" },
+        "text_boxes_shadow_blur": { "label": "Shadow blur" }
+      }
+    },
+    "popup": {
+      "name": "Popups",
+      "settings": {
+        "popup_border_thickness": { "label": "Border thickness" },
+        "popup_border_opacity": { "label": "Border opacity" },
+        "popup_corner_radius": { "label": "Corner radius" },
+        "popup_shadow_opacity": { "label": "Shadow opacity" },
+        "popup_shadow_horizontal_offset": { "label": "Shadow horizontal offset" },
+        "popup_shadow_vertical_offset": { "label": "Shadow vertical offset" },
+        "popup_shadow_blur": { "label": "Shadow blur" }
+      }
+    },
+    "drawer": {
+      "name": "Drawers",
+      "settings": {
+        "drawer_border_thickness": { "label": "Border thickness" },
+        "drawer_border_opacity": { "label": "Border opacity" },
+        "drawer_shadow_opacity": { "label": "Shadow opacity" },
+        "drawer_shadow_horizontal_offset": { "label": "Shadow horizontal offset" },
+        "drawer_shadow_vertical_offset": { "label": "Shadow vertical offset" },
+        "drawer_shadow_blur": { "label": "Shadow blur" }
+      }
+    },
+    "badges": {
+      "name": "Badges",
+      "settings": {
+        "badge_corner_radius": { "label": "Corner radius" }
+      }
+    },
+    "brand_information": {
+      "name": "Brand information",
+      "settings": {
+        "paragraph": { "content": "Add data points that describe your brand, shown in the \"About\" section on some review apps." },
+        "brand_headline": { "label": "Headline" },
+        "brand_description": { "label": "Description" },
+        "brand_image": { "label": "Image" },
+        "brand_image_width": { "label": "Image width" }
+      }
+    },
+    "favicon": {
+      "name": "Favicon",
+      "settings": {
+        "favicon": { "label": "Favicon image" }
+      }
+    },
+    "social_media": {
+      "name": "Social media",
+      "settings": {
+        "social_twitter_link": {
+          "label": "Twitter",
+          "info": "https://twitter.com/shopify"
+        },
+        "social_facebook_link": {
+          "label": "Facebook",
+          "info": "https://facebook.com/shopify"
+        },
+        "social_pinterest_link": {
+          "label": "Pinterest",
+          "info": "https://pinterest.com/shopify"
+        },
+        "social_instagram_link": {
+          "label": "Instagram",
+          "info": "https://instagram.com/shopify"
+        },
+        "social_tiktok_link": {
+          "label": "TikTok",
+          "info": "https://tiktok.com/@shopify"
+        },
+        "social_youtube_link": {
+          "label": "YouTube",
+          "info": "https://youtube.com/shopify"
+        }
+      }
+    },
+    "search_input": {
+      "name": "Search input",
+      "settings": {
+        "predictive_search_enabled": { "label": "Enable predictive search" }
+      }
+    },
+    "cart": {
+      "name": "Cart",
+      "settings": {
+        "cart_type": {
+          "label": "Cart type",
+          "options__1": { "label": "Drawer" },
+          "options__2": { "label": "Page" },
+          "options__3": { "label": "Notification" }
+        },
+        "show_vendor": { "label": "Show product vendor" },
+        "show_cart_note": { "label": "Enable cart note" }
+      }
+    },
+    "animations": {
+      "name": "Animations",
+      "settings": {
+        "animations_reveal_on_scroll": {
+          "label": "Reveal sections on scroll",
+          "options__1": { "label": "Disabled" },
+          "options__2": { "label": "Enabled" }
+        },
+        "animations_hover_elements": {
+          "label": "Hover effect",
+          "options__1": { "label": "None" },
+          "options__2": { "label": "Lift" }
+        }
+      }
+    }
+  }
+}

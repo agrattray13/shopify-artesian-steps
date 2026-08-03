@@ -1,0 +1,16 @@
+{
+  "sections": {
+    "main": {
+      "type": "main-search",
+      "settings": {
+        "columns_desktop": 4,
+        "show_secondary_image": false,
+        "show_vendor": false,
+        "show_rating": false,
+        "color_scheme": "background-1",
+        "image_ratio": "adapt"
+      }
+    }
+  },
+  "order": ["main"]
+}

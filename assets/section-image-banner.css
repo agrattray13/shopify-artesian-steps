@@ -1,0 +1,5 @@
+/* section-image-banner.css — loaded by the image-banner section */
+.banner--full-width {
+  margin-left: calc(-1 * var(--page-width-margin, 0));
+  margin-right: calc(-1 * var(--page-width-margin, 0));
+}

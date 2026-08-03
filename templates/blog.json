@@ -1,0 +1,19 @@
+{
+  "sections": {
+    "main": {
+      "type": "main-blog",
+      "settings": {
+        "show_image": true,
+        "image_height": "medium",
+        "show_date": true,
+        "show_author": false,
+        "paragraph_count": 3,
+        "blog_posts_per_page": 6,
+        "columns_desktop": 3,
+        "color_scheme": "background-1",
+        "image_ratio": "adapt"
+      }
+    }
+  },
+  "order": ["main"]
+}

@@ -1,0 +1,74 @@
+{%- liquid
+  assign ratio = 1
+  if media_aspect_ratio == 'portrait'
+    assign ratio = 0.8
+  endif
+  if media_aspect_ratio == 'adapt' and product_ref.featured_media
+    assign ratio = product_ref.featured_media.aspect_ratio
+  endif
+  if ratio == 0 or ratio == nil
+    assign ratio = 1
+  endif
+-%}
+
+<div class="card-wrapper product-card-wrapper underline-links-hover">
+  <div class="card card--{{ settings.card_style }}{% if product_ref.featured_media %} card--media{% else %} card--text{% endif %}" style="--ratio-percent: {{ 1 | divided_by: ratio | times: 100 }}%;">
+    <div class="card__inner color-{{ settings.card_style | default: 'background-1' }}{% if product_ref.featured_media %} ratio{% endif %}" style="--ratio-percent: {{ 1 | divided_by: ratio | times: 100 }}%;">
+      {%- if product_ref.featured_media -%}
+        <div class="card__media">
+          <div class="media media--transparent media--hover-effect">
+            <a href="{{ product_ref.url }}" id="ProductCardLink-{{ section.id }}-{{ product_ref.id }}" class="full-unstyled-link" tabindex="-1" aria-label="{{ product_ref.title | escape }}">
+              {{ product_ref.featured_media | image_url: width: 533 | image_tag:
+                loading: 'lazy',
+                widths: '165, 360, 533',
+                class: 'motion-reduce card__primary-image'
+              }}
+              {%- if show_secondary_image and product_ref.media[1] != nil -%}
+                {{ product_ref.media[1] | image_url: width: 533 | image_tag:
+                  loading: 'lazy',
+                  widths: '165, 360, 533',
+                  class: 'motion-reduce card__secondary-image'
+                }}
+              {%- endif -%}
+            </a>
+          </div>
+        </div>
+      {%- else -%}
+        <div class="card__media">
+          <div class="media media--transparent">
+            <a href="{{ product_ref.url }}" id="ProductCardLink-{{ section.id }}-{{ product_ref.id }}" class="full-unstyled-link" tabindex="-1" aria-label="{{ product_ref.title | escape }}">
+              {{ 'product-1' | placeholder_svg_tag: 'placeholder-svg' }}
+            </a>
+          </div>
+        </div>
+      {%- endif -%}
+      <div class="card__content">
+        <div class="card__badge {{ settings.badge_position | default: 'bottom left' }}">
+          {%- if product_ref.available == false -%}
+            <span class="badge badge--bottom-left color-{{ settings.sold_out_badge_color_scheme | default: 'inverse' }}">{{ 'products.product.sold_out' | t }}</span>
+          {%- elsif product_ref.compare_at_price > product_ref.price and product_ref.available -%}
+            <span class="badge badge--bottom-left color-{{ settings.sale_badge_color_scheme | default: 'accent-1' }}">{{ 'products.product.on_sale' | t }}</span>
+          {%- endif -%}
+        </div>
+      </div>
+    </div>
+
+    <div class="card__information">
+      <h3 class="card__heading h5{% if product_ref.featured_media or settings.card_style == 'standard' %} card__heading--placeholder{% endif %}">
+        <a href="{{ product_ref.url }}"
+          id="StandardCardNoMediaLink-{{ section.id }}-{{ product_ref.id }}"
+          class="full-unstyled-link"
+          aria-labelledby="StandardCardNoMediaLink-{{ section.id }}-{{ product_ref.id }} NoMediaStandardBadge-{{ section.id }}-{{ product_ref.id }}">
+          {{ product_ref.title | escape }}
+        </a>
+      </h3>
+      <div class="card__content-secondary">
+        {%- if show_vendor -%}
+          <span class="visually-hidden">Vendor:</span>
+          <div class="caption-with-letter-spacing light">{{ product_ref.vendor }}</div>
+        {%- endif -%}
+        {%- render 'price', product: product_ref, price_class: '' -%}
+      </div>
+    </div>
+  </div>
+</div>

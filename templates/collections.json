@@ -1,0 +1,16 @@
+{
+  "sections": {
+    "main": {
+      "type": "main-list-collections",
+      "settings": {
+        "title": "All Collections",
+        "sort": "alphabetical",
+        "columns_desktop": 3,
+        "color_scheme": "background-1",
+        "image_ratio": "square",
+        "show_collection_description": true
+      }
+    }
+  },
+  "order": ["main"]
+}

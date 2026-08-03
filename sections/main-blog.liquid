@@ -1,0 +1,133 @@
+<div class="page-width section-{{ section.id }}-padding color-{{ section.settings.color_scheme }} gradient">
+  {%- if blog.articles_count == 0 -%}
+    <div class="title-wrapper center element-margin-top">
+      <h1 class="title h0">{{ blog.title }}</h1>
+      <p>No articles found.</p>
+    </div>
+  {%- else -%}
+    <div class="title-wrapper center element-margin-top">
+      <h1 class="title h0">{{ blog.title }}</h1>
+    </div>
+    {%- paginate blog.articles by section.settings.blog_posts_per_page -%}
+      <ul class="blog-articles grid grid--{{ section.settings.columns_mobile }}-col-tablet-down grid--{{ section.settings.columns_desktop }}-col-desktop article-grid" role="list">
+        {%- for article in blog.articles -%}
+          <li class="blog-articles__article article grid__item{% if settings.animations_reveal_on_scroll == 'enabled' %} scroll-trigger animate--slide-in{% endif %}">
+            {%- render 'article-card',
+              article: article,
+              media_aspect_ratio: section.settings.image_ratio,
+              media_height: section.settings.image_height,
+              show_image: section.settings.show_image,
+              show_date: section.settings.show_date,
+              show_author: section.settings.show_author,
+              show_excerpt: true,
+              excerpt_length: section.settings.paragraph_count
+            -%}
+          </li>
+        {%- endfor -%}
+      </ul>
+      {%- if paginate.pages > 1 -%}
+        {%- render 'pagination', paginate: paginate, anchor: '' -%}
+      {%- endif -%}
+    {%- endpaginate -%}
+  {%- endif -%}
+</div>
+
+{% schema %}
+{
+  "name": "Blog posts",
+  "class": "section",
+  "settings": [
+    {
+      "type": "checkbox",
+      "id": "show_image",
+      "default": true,
+      "label": "Show featured image"
+    },
+    {
+      "type": "select",
+      "id": "image_height",
+      "options": [
+        { "value": "adapt", "label": "Adapt to image" },
+        { "value": "small", "label": "Small" },
+        { "value": "medium", "label": "Medium" },
+        { "value": "large", "label": "Large" }
+      ],
+      "default": "medium",
+      "label": "Image height"
+    },
+    {
+      "type": "select",
+      "id": "image_ratio",
+      "options": [
+        { "value": "adapt", "label": "Adapt to image" },
+        { "value": "portrait", "label": "Portrait" },
+        { "value": "square", "label": "Square" }
+      ],
+      "default": "adapt",
+      "label": "Image ratio"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_date",
+      "default": true,
+      "label": "Show date"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_author",
+      "default": false,
+      "label": "Show author"
+    },
+    {
+      "type": "range",
+      "id": "paragraph_count",
+      "min": 0,
+      "max": 3,
+      "step": 1,
+      "default": 2,
+      "label": "Paragraph truncation"
+    },
+    {
+      "type": "range",
+      "id": "blog_posts_per_page",
+      "min": 3,
+      "max": 24,
+      "step": 3,
+      "default": 9,
+      "label": "Blog posts per page"
+    },
+    {
+      "type": "range",
+      "id": "columns_desktop",
+      "min": 1,
+      "max": 4,
+      "step": 1,
+      "default": 3,
+      "label": "Number of columns on desktop"
+    },
+    {
+      "type": "select",
+      "id": "color_scheme",
+      "options": [
+        { "value": "accent-1", "label": "Accent 1" },
+        { "value": "accent-2", "label": "Accent 2" },
+        { "value": "background-1", "label": "Background 1" },
+        { "value": "background-2", "label": "Background 2" },
+        { "value": "inverse", "label": "Inverse" }
+      ],
+      "default": "background-1",
+      "label": "Color scheme"
+    },
+    {
+      "type": "select",
+      "id": "columns_mobile",
+      "default": "1",
+      "label": "Number of columns on mobile",
+      "options": [
+        { "value": "1", "label": "1 column" },
+        { "value": "2", "label": "2 columns" }
+      ]
+    }
+  ]
+}
+{% endschema %}

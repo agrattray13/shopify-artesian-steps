@@ -1,0 +1,248 @@
+{{ 'section-image-banner.css' | asset_url | stylesheet_tag }}
+
+{%- style -%}
+  #Banner-{{ section.id }}::after {
+    opacity: {{ section.settings.image_overlay_opacity | divided_by: 100.0 }};
+  }
+  #Banner-{{ section.id }} .banner__media img {
+    object-position: {{ section.settings.image_position }};
+  }
+{%- endstyle -%}
+
+<div id="Banner-{{ section.id }}"
+  class="banner banner--content-align-{{ section.settings.content_alignment }} banner--{{ section.settings.image_height }}{% if section.settings.full_width %} banner--full-width{% endif %} color-{{ section.settings.color_scheme }} gradient">
+
+  {%- if section.settings.image != blank -%}
+    <div class="banner__media{% if section.settings.image == blank %} placeholder{% endif %}">
+      {%- liquid
+        assign fetch_priority = 'auto'
+        if section.index == 1
+          assign fetch_priority = 'high'
+        endif
+      -%}
+      {{ section.settings.image | image_url: width: 1500 | image_tag:
+        loading: 'lazy',
+        fetchpriority: fetch_priority,
+        widths: '375, 550, 750, 1100, 1500',
+        class: 'banner__image'
+      }}
+    </div>
+  {%- else -%}
+    <div class="banner__media placeholder">
+      {{ 'lifestyle-2' | placeholder_svg_tag: 'placeholder-svg' }}
+    </div>
+  {%- endif -%}
+
+  <div class="banner__content banner__content--{{ section.settings.text_box_position }} page-width{% if settings.animations_reveal_on_scroll == 'enabled' %} scroll-trigger animate--slide-in{% endif %}">
+    <div class="banner__box content-container content-container--full-width-mobile color-{{ section.settings.box_color_scheme }} gradient">
+      {%- unless section.settings.subheading == blank -%}
+        <p class="banner__subheading body-text">{{ section.settings.subheading | escape }}</p>
+      {%- endunless -%}
+      {%- unless section.settings.heading == blank -%}
+        <h2 class="banner__heading inline-richtext {{ section.settings.heading_size }}">{{ section.settings.heading }}</h2>
+      {%- endunless -%}
+      {%- unless section.settings.text == blank -%}
+        <div class="banner__text rte">{{ section.settings.text }}</div>
+      {%- endunless -%}
+      {%- if section.settings.button_label != blank -%}
+        <div class="banner__buttons">
+          <a href="{{ section.settings.button_link }}" class="banner__button btn{% if section.settings.button_style_secondary %} btn--secondary{% else %} btn--primary{% endif %}">
+            {{- section.settings.button_label | escape -}}
+          </a>
+          {%- if section.settings.button_label_2 != blank -%}
+            <a href="{{ section.settings.button_link_2 }}" class="banner__button btn{% if section.settings.button_style_secondary_2 %} btn--secondary{% else %} btn--primary{% endif %}">
+              {{- section.settings.button_label_2 | escape -}}
+            </a>
+          {%- endif -%}
+        </div>
+      {%- endif -%}
+    </div>
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Image banner",
+  "class": "section",
+  "settings": [
+    {
+      "type": "image_picker",
+      "id": "image",
+      "label": "Image"
+    },
+    {
+      "type": "select",
+      "id": "image_height",
+      "options": [
+        { "value": "adapt", "label": "Adapt to image" },
+        { "value": "small", "label": "Small" },
+        { "value": "medium", "label": "Medium" },
+        { "value": "large", "label": "Large" }
+      ],
+      "default": "large",
+      "label": "Banner height"
+    },
+    {
+      "type": "checkbox",
+      "id": "full_width",
+      "default": true,
+      "label": "Full width"
+    },
+    {
+      "type": "range",
+      "id": "image_overlay_opacity",
+      "min": 0,
+      "max": 100,
+      "step": 10,
+      "unit": "%",
+      "label": "Image overlay opacity",
+      "default": 30
+    },
+    {
+      "type": "select",
+      "id": "image_position",
+      "options": [
+        { "value": "20% 0", "label": "Top left" },
+        { "value": "top center", "label": "Top center" },
+        { "value": "80% 0", "label": "Top right" },
+        { "value": "20% 50%", "label": "Middle left" },
+        { "value": "center center", "label": "Middle center" },
+        { "value": "80% 50%", "label": "Middle right" },
+        { "value": "20% 100%", "label": "Bottom left" },
+        { "value": "bottom center", "label": "Bottom center" },
+        { "value": "80% 100%", "label": "Bottom right" }
+      ],
+      "default": "center center",
+      "label": "Image position"
+    },
+    {
+      "type": "header",
+      "content": "Content"
+    },
+    {
+      "type": "select",
+      "id": "content_alignment",
+      "options": [
+        { "value": "left", "label": "Left" },
+        { "value": "center", "label": "Center" },
+        { "value": "right", "label": "Right" }
+      ],
+      "default": "center",
+      "label": "Content alignment"
+    },
+    {
+      "type": "select",
+      "id": "text_box_position",
+      "options": [
+        { "value": "top-left", "label": "Top left" },
+        { "value": "top-center", "label": "Top center" },
+        { "value": "top-right", "label": "Top right" },
+        { "value": "middle-left", "label": "Middle left" },
+        { "value": "middle-center", "label": "Middle center" },
+        { "value": "middle-right", "label": "Middle right" },
+        { "value": "bottom-left", "label": "Bottom left" },
+        { "value": "bottom-center", "label": "Bottom center" },
+        { "value": "bottom-right", "label": "Bottom right" }
+      ],
+      "default": "middle-center",
+      "label": "Desktop content position"
+    },
+    {
+      "type": "text",
+      "id": "subheading",
+      "default": "Welcome",
+      "label": "Subheading"
+    },
+    {
+      "type": "inline_richtext",
+      "id": "heading",
+      "default": "Artesian Steps",
+      "label": "Heading"
+    },
+    {
+      "type": "select",
+      "id": "heading_size",
+      "options": [
+        { "value": "h2", "label": "Small" },
+        { "value": "h1", "label": "Medium" },
+        { "value": "h0", "label": "Large" }
+      ],
+      "default": "h1",
+      "label": "Heading size"
+    },
+    {
+      "type": "richtext",
+      "id": "text",
+      "label": "Text"
+    },
+    {
+      "type": "text",
+      "id": "button_label",
+      "default": "Shop now",
+      "label": "First button label"
+    },
+    {
+      "type": "url",
+      "id": "button_link",
+      "label": "First button link"
+    },
+    {
+      "type": "checkbox",
+      "id": "button_style_secondary",
+      "default": false,
+      "label": "Use outline button style for first button"
+    },
+    {
+      "type": "text",
+      "id": "button_label_2",
+      "label": "Second button label"
+    },
+    {
+      "type": "url",
+      "id": "button_link_2",
+      "label": "Second button link"
+    },
+    {
+      "type": "checkbox",
+      "id": "button_style_secondary_2",
+      "default": false,
+      "label": "Use outline button style for second button"
+    },
+    {
+      "type": "select",
+      "id": "color_scheme",
+      "options": [
+        { "value": "accent-1", "label": "Accent 1" },
+        { "value": "accent-2", "label": "Accent 2" },
+        { "value": "background-1", "label": "Background 1" },
+        { "value": "background-2", "label": "Background 2" },
+        { "value": "inverse", "label": "Inverse" }
+      ],
+      "default": "background-1",
+      "label": "Color scheme"
+    },
+    {
+      "type": "select",
+      "id": "box_color_scheme",
+      "options": [
+        { "value": "accent-1", "label": "Accent 1" },
+        { "value": "accent-2", "label": "Accent 2" },
+        { "value": "background-1", "label": "Background 1" },
+        { "value": "background-2", "label": "Background 2" },
+        { "value": "inverse", "label": "Inverse" }
+      ],
+      "default": "background-1",
+      "label": "Box color scheme"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Image banner",
+      "settings": {
+        "heading": "Artesian Steps",
+        "button_label": "Shop now"
+      }
+    }
+  ]
+}
+{% endschema %}
