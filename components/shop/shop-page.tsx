@@ -1,5 +1,6 @@
 "use client";
 
+import { Suspense } from "react";
 import { useState, useMemo } from "react";
 import { useSearchParams } from "next/navigation";
 import { Search, SlidersHorizontal, X, ChevronDown } from "lucide-react";
@@ -35,7 +36,7 @@ interface ShopPageProps {
   products: Product[];
 }
 
-export function ShopPage({ initialCategory }: ShopPageProps) {
+function ShopPageInner({ initialCategory }: ShopPageProps) {
   const searchParams = useSearchParams();
   const [query, setQuery] = useState(searchParams.get("q") || "");
   const [selectedCategory, setSelectedCategory] = useState(initialCategory);
@@ -375,6 +376,38 @@ export function ShopPage({ initialCategory }: ShopPageProps) {
                 )}
               </>
             )}
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+export function ShopPage(props: ShopPageProps) {
+  return (
+    <Suspense fallback={<ShopPageSkeleton />}>
+      <ShopPageInner {...props} />
+    </Suspense>
+  );
+}
+
+function ShopPageSkeleton() {
+  return (
+    <div className="bg-soft-white py-12 sm:py-16">
+      <div className="mx-auto max-w-[1600px] px-4 sm:px-6 lg:px-8">
+        <div className="h-10 w-48 animate-pulse bg-stone-200" />
+        <div className="mt-8 grid gap-8 lg:grid-cols-4">
+          <div className="hidden lg:block">
+            <div className="space-y-6">
+              <div className="h-40 animate-pulse bg-stone-200" />
+              <div className="h-40 animate-pulse bg-stone-200" />
+              <div className="h-40 animate-pulse bg-stone-200" />
+            </div>
+          </div>
+          <div className="lg:col-span-3 grid gap-6 sm:grid-cols-2 xl:grid-cols-3">
+            {Array.from({ length: 6 }).map((_, i) => (
+              <div key={i} className="aspect-[3/4] animate-pulse bg-stone-200" />
+            ))}
           </div>
         </div>
       </div>

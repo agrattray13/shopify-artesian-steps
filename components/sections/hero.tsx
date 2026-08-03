@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
+import { SafeImage } from "@/components/shared/safe-image";
 
 export function HeroSection() {
   return (
@@ -11,10 +12,13 @@ export function HeroSection() {
       aria-label="Hero"
     >
       <div className="absolute inset-0">
-        <img
+        <SafeImage
           src="/images/hero-formalwear.jpg"
           alt="Man wearing a tailored navy suit in a luxury showroom"
-          className="h-full w-full object-cover opacity-60"
+          fill
+          priority
+          className="object-cover opacity-60"
+          sizes="100vw"
         />
         <div className="absolute inset-0 bg-gradient-to-r from-obsidian/80 via-obsidian/40 to-transparent" />
       </div>

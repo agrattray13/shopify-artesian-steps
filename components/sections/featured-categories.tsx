@@ -4,6 +4,7 @@ import Link from "next/link";
 import { motion } from "framer-motion";
 import { categories } from "@/lib/data/products";
 import { SectionHeader } from "@/components/shared/section-header";
+import { SafeImage } from "@/components/shared/safe-image";
 
 export function FeaturedCategoriesSection() {
   return (
@@ -24,10 +25,12 @@ export function FeaturedCategoriesSection() {
                 href={`/shop/${category.slug}`}
                 className="group relative block aspect-[4/5] overflow-hidden bg-ivory"
               >
-                <img
+                <SafeImage
                   src={category.image}
                   alt={category.name}
-                  className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-105"
+                  fill
+                  className="object-cover transition-transform duration-700 group-hover:scale-105"
+                  sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-obsidian/80 via-obsidian/20 to-transparent" />
                 <div className="absolute bottom-0 left-0 p-6 text-ivory">

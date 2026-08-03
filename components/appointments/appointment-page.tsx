@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import Link from "next/link";
 import { Check } from "lucide-react";
 import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
@@ -79,8 +80,8 @@ export function AppointmentPage() {
           Thank you, {form.name}. We have received your request for a {form.type.toLowerCase()} on {form.date} at{" "}
           {form.time}. A member of our team will confirm your appointment shortly.
         </p>
-        <Button href="/" asChild className="mt-8">
-          <a href="/">Return Home</a>
+        <Button asChild className="mt-8">
+          <Link href="/">Return Home</Link>
         </Button>
       </div>
     );

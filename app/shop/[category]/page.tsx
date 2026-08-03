@@ -3,7 +3,7 @@ import { products, categories } from "@/lib/data/products";
 import { ShopPage } from "@/components/shop/shop-page";
 
 export function generateStaticParams() {
-  return [{ category: "new-arrivals" }, ...categories.map((c) => ({ category: c.slug })];
+  return [{ category: "new-arrivals" }, ...categories.map((c) => ({ category: c.slug }))];
 }
 
 export function generateMetadata({ params }: { params: { category: string } }) {

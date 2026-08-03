@@ -5,6 +5,7 @@ import { Heart } from "lucide-react";
 import { motion } from "framer-motion";
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
+import { SafeImage } from "@/components/shared/safe-image";
 import type { Product } from "@/lib/data/products";
 import { formatPrice } from "@/lib/data/products";
 
@@ -27,11 +28,12 @@ export function ProductCard({ product, index = 0 }: ProductCardProps) {
       <Link href={`/products/${product.slug}`} className="relative block overflow-hidden bg-ivory">
         <div className="aspect-[3/4] w-full">
           {firstImage ? (
-            <img
+            <SafeImage
               src={firstImage}
               alt={product.name}
-              loading="lazy"
-              className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-105"
+              fill
+              className="object-cover transition-transform duration-700 group-hover:scale-105"
+              sizes="(max-width: 640px) 50vw, (max-width: 1024px) 33vw, 25vw"
             />
           ) : (
             <div className="flex h-full w-full items-center justify-center bg-stone-200 text-sm text-charcoal">

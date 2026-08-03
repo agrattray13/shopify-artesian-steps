@@ -2,11 +2,12 @@
 
 import { useState } from "react";
 import Link from "next/link";
-import { Check, CreditCard, ShieldCheck, Truck } from "lucide-react";
+import { Check, CreditCard, ShieldCheck } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Separator } from "@/components/ui/separator";
+import { SafeImage } from "@/components/shared/safe-image";
 import { useCart, getCartTotals } from "@/lib/store/cart-store";
 import { products, formatPrice } from "@/lib/data/products";
 
@@ -232,9 +233,15 @@ export function CheckoutPage() {
                   if (!product) return null;
                   return (
                     <div key={`${item.productId}-${item.color}-${item.size}`} className="flex gap-3">
-                      <div className="aspect-square w-16 overflow-hidden bg-ivory">
+                      <div className="relative aspect-square w-16 overflow-hidden bg-ivory">
                         {product.images[0] ? (
-                          <img src={product.images[0]} alt={product.name} className="h-full w-full object-cover" />
+                          <SafeImage
+                            src={product.images[0]}
+                            alt={product.name}
+                            fill
+                            className="object-cover"
+                            sizes="64px"
+                          />
                         ) : null}
                       </div>
                       <div className="flex-1 text-sm">

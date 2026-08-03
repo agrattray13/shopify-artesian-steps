@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
+import { SafeImage } from "@/components/shared/safe-image";
 
 export function SignatureCollectionSection() {
   return (
@@ -51,10 +52,12 @@ export function SignatureCollectionSection() {
             transition={{ duration: 0.9 }}
             className="relative min-h-[400px] lg:min-h-full"
           >
-            <img
+            <SafeImage
               src="/images/signature-collection.jpg"
               alt="Tailored charcoal suit displayed in a refined atelier"
-              className="absolute inset-0 h-full w-full object-cover"
+              fill
+              className="object-cover"
+              sizes="(max-width: 1024px) 100vw, 50vw"
             />
           </motion.div>
         </div>

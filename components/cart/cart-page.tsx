@@ -7,6 +7,7 @@ import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Separator } from "@/components/ui/separator";
+import { SafeImage } from "@/components/shared/safe-image";
 import { useCart, getCartTotals, type CartItem } from "@/lib/store/cart-store";
 import { products, formatPrice } from "@/lib/data/products";
 
@@ -26,7 +27,13 @@ function CartLineItem({ item }: { item: CartItem }) {
       <Link href={`/products/${product.slug}`} className="shrink-0">
         <div className="aspect-[3/4] w-24 overflow-hidden bg-ivory sm:w-32">
           {product.images[0] ? (
-            <img src={product.images[0]} alt={product.name} className="h-full w-full object-cover" />
+            <SafeImage
+              src={product.images[0]}
+              alt={product.name}
+              fill
+              className="object-cover"
+              sizes="128px"
+            />
           ) : (
             <div className="flex h-full w-full items-center justify-center text-xs text-charcoal">{product.name}</div>
           )}

@@ -1,7 +1,6 @@
 import Link from "next/link";
-import { Input } from "@/components/ui/input";
-import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
+import { NewsletterForm } from "@/components/shared/newsletter-form";
 
 const footerLinks = {
   shop: [
@@ -101,18 +100,7 @@ export function Footer() {
           <p className="mt-1 text-sm text-ivory/70">
             Receive private offers, seasonal style guidance, and invitations to exclusive events.
           </p>
-          <form className="mt-4 flex flex-col gap-3 sm:flex-row" onSubmit={(e) => e.preventDefault()}>
-            <Input
-              type="email"
-              placeholder="Email address"
-              aria-label="Email address for newsletter"
-              className="border-stone-700 bg-obsidian text-ivory placeholder:text-stone-500 focus-visible:ring-gold"
-              required
-            />
-            <Button type="submit" className="shrink-0">
-              Subscribe
-            </Button>
-          </form>
+          <NewsletterForm dark />
         </div>
 
         <Separator className="my-10 bg-stone-800" />

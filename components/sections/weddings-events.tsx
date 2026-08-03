@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
+import { SafeImage } from "@/components/shared/safe-image";
 
 const services = [
   "Groom consultations",
@@ -25,11 +26,15 @@ export function WeddingsEventsSection() {
             transition={{ duration: 0.7 }}
             className="order-2 lg:order-1"
           >
-            <img
-              src="/images/weddings-events.jpg"
-              alt="Groom and groomsmen in tailored wedding suits"
-              className="aspect-[4/5] w-full object-cover"
-            />
+            <div className="relative aspect-[4/5] w-full overflow-hidden">
+              <SafeImage
+                src="/images/weddings-events.jpg"
+                alt="Groom and groomsmen in tailored wedding suits"
+                fill
+                className="object-cover"
+                sizes="(max-width: 1024px) 100vw, 50vw"
+              />
+            </div>
           </motion.div>
 
           <motion.div

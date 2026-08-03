@@ -10,6 +10,7 @@ import { Label } from "@/components/ui/label";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Separator } from "@/components/ui/separator";
 import { Input } from "@/components/ui/input";
+import { SafeImage } from "@/components/shared/safe-image";
 import { type Product, formatPrice } from "@/lib/data/products";
 import { useCart } from "@/lib/store/cart-store";
 import { ProductCard } from "@/components/shared/product-card";
@@ -27,7 +28,6 @@ export function ProductDetail({ product, relatedProducts }: ProductDetailProps) 
   const [added, setAdded] = useState(false);
   const addItem = useCart((s) => s.addItem);
 
-  const selectedColorHex = product.colors.find((c) => c.name === selectedColor)?.hex;
   const selectedSizeObj = product.sizes.find((s) => s.name === selectedSize);
   const canAdd = selectedColor && selectedSize && selectedSizeObj?.inStock;
 
@@ -84,12 +84,14 @@ export function ProductDetail({ product, relatedProducts }: ProductDetailProps) 
             className="space-y-4"
           >
             {product.images.map((image, index) => (
-              <div key={image} className="aspect-[4/5] overflow-hidden bg-ivory">
-                <img
+              <div key={image} className="relative aspect-[4/5] overflow-hidden bg-ivory">
+                <SafeImage
                   src={image}
                   alt={`${product.name} - image ${index + 1}`}
-                  className="h-full w-full object-cover"
-                  loading={index === 0 ? "eager" : "lazy"}
+                  fill
+                  priority={index === 0}
+                  className="object-cover"
+                  sizes="(max-width: 1024px) 100vw, 50vw"
                 />
               </div>
             ))}

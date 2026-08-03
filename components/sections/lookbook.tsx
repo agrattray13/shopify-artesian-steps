@@ -2,6 +2,7 @@
 
 import { motion } from "framer-motion";
 import { SectionHeader } from "@/components/shared/section-header";
+import { SafeImage } from "@/components/shared/safe-image";
 
 const looks = [
   { title: "Wedding Morning", image: "/images/lookbook-wedding.jpg" },
@@ -30,10 +31,12 @@ export function LookbookSection() {
               transition={{ duration: 0.5, delay: index * 0.1 }}
               className="group relative aspect-[3/4] overflow-hidden"
             >
-              <img
+              <SafeImage
                 src={look.image}
                 alt={`${look.title} formalwear look`}
-                className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-105"
+                fill
+                className="object-cover transition-transform duration-700 group-hover:scale-105"
+                sizes="(max-width: 640px) 100vw, 25vw"
               />
               <div className="absolute inset-0 bg-gradient-to-t from-obsidian/70 to-transparent" />
               <div className="absolute bottom-0 left-0 p-6">
