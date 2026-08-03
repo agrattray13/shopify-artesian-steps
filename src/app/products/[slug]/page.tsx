@@ -12,15 +12,18 @@ import { siteConfig } from "@/lib/site"
 import { formatPrice } from "@/lib/utils"
 
 interface ProductPageProps {
-  params: { slug: string }
+  params: Promise<{ slug: string }>
 }
 
 export function generateStaticParams() {
   return getAllProducts().map((product) => ({ slug: product.slug }))
 }
 
-export function generateMetadata({ params }: ProductPageProps): Metadata {
-  const product = getProductBySlug(params.slug)
+export async function generateMetadata({
+  params,
+}: ProductPageProps): Promise<Metadata> {
+  const { slug } = await params
+  const product = getProductBySlug(slug)
 
   if (!product) {
     return {
@@ -53,8 +56,9 @@ export function generateMetadata({ params }: ProductPageProps): Metadata {
   }
 }
 
-export default function ProductPage({ params }: ProductPageProps) {
-  const product = getProductBySlug(params.slug)
+export default async function ProductPage({ params }: ProductPageProps) {
+  const { slug } = await params
+  const product = getProductBySlug(slug)
 
   if (!product) {
     notFound()
